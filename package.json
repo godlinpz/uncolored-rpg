@@ -1,0 +1,58 @@
+{
+    "name": "uncolored-rpg",
+    "version": "1.0.0",
+    "description": "RPG Game for Uncolored::Meetup",
+    "main": "index.js",
+    "repository": "https://github.com/godlinpz/uncolored-rpg.git",
+    "author": "Dmitry Pavlichenko <godlin.pz@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "dev": "env NODE_ENV=development webpack --config webpack.config.js",
+        "prod": "env NODE_ENV=production webpack --config webpack.config.js",
+        "start": "env NODE_ENV=development webpack serve",
+        "lint": "yarn eslint -c eslintrc.js ./src"
+    },
+    "dependencies": {
+        "jquery": "^3.5.1",
+        "lodash": "^4.17.20"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.3",
+        "babel-eslint": "^10.1.0",
+        "babel-loader": "^8.2.2",
+        "css-loader": "^5.0.1",
+        "eslint": "^7.14.0",
+        "eslint-config-prettier": "^6.15.0",
+        "eslint-import-resolver-webpack": "^0.13.0",
+        "eslint-plugin-flowtype": "^5.2.0",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-jsx-a11y": "^6.4.1",
+        "eslint-plugin-prettier": "^3.2.0",
+        "eslint-plugin-promise": "^4.2.1",
+        "eslint-plugin-sonarjs": "^0.5.0",
+        "html-webpack-plugin": "^4.5.0",
+        "husky": "^4.3.0",
+        "jest": "^26.6.3",
+        "lint-staged": "^10.5.3",
+        "node-sass": "^5.0.0",
+        "prettier": "^2.2.1",
+        "pretty-quick": "^3.1.0",
+        "sass-loader": "^10.1.0",
+        "style-loader": "^2.0.0",
+        "webpack": "^5.9.0",
+        "webpack-cli": "^4.2.0",
+        "webpack-dev-server": "^3.11.0"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "src/**/*.{js,jsx,ts,tsx,css}": [
+            "yarn pretty-quick --stage",
+            "yarn lint"
+        ]
+    }
+}
