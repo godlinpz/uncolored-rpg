@@ -1,3 +1,12 @@
 import style from './style.scss';
+import Game from './game/Game';
+import $ from 'jquery';
 
-console.log('INIT');
+$(() => {
+    try {
+        Game.init();
+    } catch (e) {
+        console.log('EXCEPTION!!!!');
+        console.log(e);
+    }
+});
