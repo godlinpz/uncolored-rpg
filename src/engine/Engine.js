@@ -14,10 +14,16 @@ class Engine extends EventSource {
         console.log('ENGINE');
         canvas.addEventListener('keydown', (e) => this.onKeyDown(e), false);
 
-        this.char_pos = { x: 300, y: 300 };
+        // this.char_pos = { x: 300, y: 300 };
 
         this.thisLoop = this.loop.bind(this);
-        console.log('TEST');
+
+        Object.assign(this, {
+            thisLoop: this.loop.bind(this),
+            startTime: 0, // время начала работы движка по времений браузера
+            lastRenderTime: 0, // время предыдущего вызова рендера
+            lastTimeStamp: 0, // время последего вызова по времений браузера
+        });
     }
 
     onKeyDown(e) {
@@ -34,22 +40,17 @@ class Engine extends EventSource {
     }
 
     loop(timestamp) {
-        const ctx = this.ctx;
+        if (!this.startTime) {
+            this.startTime = timestamp;
+            this.lastRenderTime = 0;
+        }
 
-        ctx.fillStyle = 'black';
+        const oldTime = this.lastRenderTime;
 
-        ctx.fillRect(0, 0, 660, 660);
+        this.lastRenderTime = timestamp - this.startTime;
+        this.lastTimeStamp = timestamp;
 
-        ctx.fillStyle = 'red';
-
-        // const x = ((timestamp|0.5) % 660000 / 10)|0.5;
-        // ctx.fillRect(x, x, 150, 150);
-
-        const { x, y } = this.char_pos;
-
-        ctx.fillRect(x, y, 50, 50);
-
-        // console.log(x);
+        this.trigger('render', [this.lastRenderTime, timestamp - oldTime]);
 
         window.requestAnimationFrame(this.thisLoop);
     }

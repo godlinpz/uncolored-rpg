@@ -1,25 +1,20 @@
-body
-{
+body {
     font-family: Verdana, Arial, sans-serif;
 }
 
-h3
-{
+h3 {
     text-align: center;
-
 }
 
-.game-container
-{
+.game-container {
     position: relative;
     width: 660px;
-    height: 660px;  
+    height: 660px;
     margin: auto;
     border: 9px solid #626262;
 }
 
-#game
-{
+#game {
     position: absolute;
     display: block;
     width: 660px;
