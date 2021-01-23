@@ -11,9 +11,6 @@ class Engine extends EventSource {
         canvas.tabIndex = 1000;
         canvas.style.outline = 'none';
 
-        console.log('ENGINE');
-        canvas.addEventListener('keydown', (e) => this.onKeyDown(e), false);
-
         // this.char_pos = { x: 300, y: 300 };
 
         this.thisLoop = this.loop.bind(this);
@@ -23,16 +20,35 @@ class Engine extends EventSource {
             startTime: 0, // время начала работы движка по времений браузера
             lastRenderTime: 0, // время предыдущего вызова рендера
             lastTimeStamp: 0, // время последего вызова по времений браузера
+            keysPressed: new Set(),
         });
+
+        canvas.addEventListener('keydown', (e) => this.onKeyDown(e), false);
+        canvas.addEventListener('keyup', (e) => this.onKeyUp(e), false);
+        canvas.addEventListener('mousedown', (e) => this.onMouseDown(e), false);
+        canvas.addEventListener('mouseup', (e) => this.onMouseUp(e), false);
     }
 
     onKeyDown(e) {
         console.log('KEY PRESSED', e.code);
 
-        if (e.code === 'ArrowLeft') this.char_pos.x -= 10;
-        else if (e.code === 'ArrowRight') this.char_pos.x += 10;
-        else if (e.code === 'ArrowUp') this.char_pos.y -= 10;
-        else if (e.code === 'ArrowDown') this.char_pos.y += 10;
+        this.keysPressed.add(e.code);
+        this.trigger('keydown', e);
+    }
+
+    onKeyUp(e) {
+        console.log('KEY UP', e.code);
+
+        this.keysPressed.delete(e.code);
+        this.trigger('keyup', e);
+    }
+
+    onMouseDown(e) {
+        this.trigger('mousedown', e);
+    }
+
+    onMouseUp(e) {
+        this.trigger('mouseup', e);
     }
 
     start() {

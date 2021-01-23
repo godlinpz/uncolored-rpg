@@ -1,4 +1,5 @@
 import { resolveConfigFile } from 'prettier';
+import Cell from './Cell';
 
 class GameMap {
     constructor(game, engine, levelCfg) {
@@ -22,7 +23,7 @@ class GameMap {
         this.levelCfg.map.forEach((rowCfg, y) => {
             rowCfg.forEach((cellCfg, x) => {
                 level[y] || (level[y] = []);
-                level[y][x] = cellCfg[0];
+                level[y][x] = new Cell(cellCfg, this, x, y);
             });
         });
 
@@ -35,11 +36,12 @@ class GameMap {
 
         for (let y = 0; y < level.length; ++y)
             for (let x = 0; x < level[y].length; ++x) {
-                if (level[y][x] === 'wall') ctx.fillStyle = 'black';
-                else ctx.fillStyle = 'green';
-
-                ctx.fillRect(x * this.cellWidth, y * this.cellHeight, this.cellWidth, this.cellHeight);
+                level[y][x].render(time, timeGap);
             }
+    }
+
+    cell(cellX, cellY) {
+        return this.level[cellY] && this.level[cellY][cellX];
     }
 }
 

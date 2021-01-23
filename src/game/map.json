@@ -4,10 +4,10 @@
         [["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"]],
         [["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"]],
         [["grass"], ["grass"], ["wall"], ["wall"], ["wall"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"]],
-        [["grass"], ["grass"], ["wall"], ["grass"], ["wall"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"]],
-        [["grass"], ["grass"], ["wall"], ["grass"], ["wall"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"]],
-        [["grass"], ["grass"], ["wall"], ["grass"], ["wall"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"]],
-        [["grass"], ["grass"], ["wall"], ["grass"], ["wall"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"]],
+        [["grass"], ["grass"], ["wall"], ["lava"], ["wall"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"]],
+        [["grass"], ["grass"], ["wall"], ["lava"], ["wall"], ["grass"], ["grass", "player"], ["grass"], ["grass"], ["grass"]],
+        [["grass"], ["grass"], ["wall"], ["lava"], ["wall"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"]],
+        [["grass"], ["grass"], ["wall"], ["lava"], ["wall"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"]],
         [["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"]],
         [["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"], ["grass"]]
     ]
