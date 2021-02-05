@@ -45,6 +45,8 @@ class Game {
 
         eng.start();
 
+        this.player && this.map.window.follow(this.player);
+
         return this;
     }
 

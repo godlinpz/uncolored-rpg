@@ -22,11 +22,22 @@ class GameObject extends EventSource {
         Object.assign(this, cell ? cell.worldPosition() : { x: 0, y: 0 });
     }
 
-    worldPosition() {
+    worldPosition(offset_percent_x = 0, offset_percent_y = 0) {
         const { cell } = this;
+        const map = this.cell.map;
         return {
-            x: cell.x,
-            y: cell.y,
+            x: cell.x + (map.cellWidth * offset_percent_x) / 100,
+            y: cell.y + (map.cellHeight * offset_percent_y) / 100,
+        };
+    }
+
+    canvasPosition(offset_percent_x = 0, offset_percent_y = 0) {
+        const win = this.cell.map.window;
+        const pos = this.worldPosition(offset_percent_x, offset_percent_y);
+
+        return {
+            x: pos.x - win.x,
+            y: pos.y - win.y,
         };
     }
 
@@ -35,9 +46,10 @@ class GameObject extends EventSource {
         const map = this.cell.map;
         const ctx = map.engine.ctx;
 
-        const { x, y } = this.worldPosition();
+        const { x, y } = this.canvasPosition();
 
         ctx.fillStyle = cellTypes[cfg];
+
         ctx.fillRect(x, y, map.cellWidth, map.cellHeight);
     }
 
