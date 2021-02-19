@@ -13,6 +13,7 @@
         "lint": "yarn eslint -c eslintrc.js ./src"
     },
     "dependencies": {
+        "copy-webpack-plugin": "^7.0.0",
         "jquery": "^3.5.1",
         "lodash": "^4.17.20"
     },

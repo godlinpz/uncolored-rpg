@@ -12,13 +12,14 @@ class GameObject extends EventSource {
         super();
         Object.assign(this, cfg);
 
-        if (cfg === 'player') cell.map.game.setPlayer(this);
+        if (cfg.name === 'player') cell.map.game.setPlayer(this);
 
         Object.assign(this, {
             cell,
             cfg,
             state: cfg['state'] || 'main',
         });
+
         Object.assign(this, cell ? cell.worldPosition() : { x: 0, y: 0 });
     }
 
@@ -44,13 +45,21 @@ class GameObject extends EventSource {
     render(time, timeGap) {
         const cfg = this.cfg;
         const map = this.cell.map;
-        const ctx = map.engine.ctx;
+        // const ctx = map.engine.ctx;
 
         const { x, y } = this.canvasPosition();
+        const [w, h] = [map.cellWidth, map.cellHeight];
 
+        const { type, sprite, frame } = cfg;
+
+        /*
         ctx.fillStyle = cellTypes[cfg];
 
         ctx.fillRect(x, y, map.cellWidth, map.cellHeight);
+        */
+        this.cell.map.engine.renderFrame({ sprite, frame, x, y, w, h });
+
+        return [time, timeGap];
     }
 
     setCell(cell) {

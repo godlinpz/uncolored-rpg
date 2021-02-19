@@ -1,5 +1,6 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV;
 
@@ -50,6 +51,9 @@ module.exports = {
     plugins: [
         new HTMLWebpackPlugin({
             template: path.resolve(__dirname, 'public/index.html')
+        }),
+        new CopyWebpackPlugin({
+            patterns: [{ from: 'assets', to: 'assets'} ]
         })
     ],
 

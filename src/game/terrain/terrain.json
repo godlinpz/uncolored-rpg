@@ -1,0 +1,26 @@
+{
+    "grass": {
+        "name": "grass",
+        "type": "static",
+        "sprite": ["terrain", "grass"],
+        "frame": 0
+    },
+    "water": {
+        "name": "water",
+        "type": "static",
+        "sprite": ["terrain", "water"],
+        "frame": 0
+    },    
+    "lava": {
+        "name": "lava",
+        "type": "static",
+        "sprite": ["terrain", "lava"],
+        "frame": 0
+    },
+    "wall": {
+        "name": "wall",
+        "type": "static",
+        "sprite": ["terrain", "wall"],
+        "frame": 0
+    }
+}

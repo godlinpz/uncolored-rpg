@@ -1,6 +1,9 @@
 import Engine from '../engine/Engine';
 import GameMap from './GameMap';
 import levelCfg from './map.json';
+import sprites from './sprites.json';
+import playerCfg from './players/player.json';
+import terrainCfg from './terrain/terrain.json';
 
 class Game {
     constructor(id = 'game') {
@@ -9,6 +12,7 @@ class Game {
         Object.assign(this, {
             map: new GameMap(this, eng, levelCfg),
             player: null,
+            gameObjects: {},
         });
 
         this.initEngine();
@@ -19,7 +23,9 @@ class Game {
         let eng = this.engine;
         eng.on('init', () => this.onEngineReady());
 
-        eng.init();
+        eng.loadSprites(sprites)
+            .then(() => eng.init())
+            .catch((e) => console.error('INIT engine errror!', e));
     }
 
     initKeys() {
@@ -32,6 +38,9 @@ class Game {
     }
     onEngineReady() {
         let eng = this.engine;
+
+        [playerCfg, terrainCfg].forEach((cfg) => this.loadGameObjects(cfg));
+
         this.map.init();
 
         // подключим обработчики событий движка
@@ -48,6 +57,10 @@ class Game {
         this.player && this.map.window.follow(this.player);
 
         return this;
+    }
+
+    loadGameObjects(objects) {
+        this.gameObjects = { ...this.gameObjects, ...objects };
     }
 
     onKeyDown({ code }) {
@@ -81,7 +94,7 @@ class Game {
 
             // console.log('MOVE PLAYER', newCell);
 
-            if (newCell && newCell.filter((o) => o.cfg === 'grass').length) {
+            if (newCell && newCell.filter((o) => o.name === 'grass').length) {
                 console.log('MOVE PLAYER', newCell);
                 player.moveToCell(newCell);
             }

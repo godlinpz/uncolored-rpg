@@ -21,12 +21,56 @@ class Engine extends EventSource {
             lastRenderTime: 0, // время предыдущего вызова рендера
             lastTimeStamp: 0, // время последего вызова по времений браузера
             keysPressed: new Set(),
+            images: {},
+            sprites: {},
         });
 
         canvas.addEventListener('keydown', (e) => this.onKeyDown(e), false);
         canvas.addEventListener('keyup', (e) => this.onKeyUp(e), false);
         canvas.addEventListener('mousedown', (e) => this.onMouseDown(e), false);
         canvas.addEventListener('mouseup', (e) => this.onMouseUp(e), false);
+    }
+
+    loadImage(url) {
+        return new Promise((resolve) => {
+            if (this.images[url]) {
+                resolve(this.images[url]);
+            } else {
+                let img = new Image();
+                this.images[url] = img;
+                img.onload = () => resolve(img);
+                img.src = url;
+            }
+        });
+    }
+
+    loadSprites(spritesGroups) {
+        const imageLoaders = [];
+
+        for (let groupName in spritesGroups) {
+            const group = spritesGroups[groupName];
+
+            this.sprites[groupName] = group;
+
+            for (let spriteName in group) {
+                const sprite = group[spriteName];
+                const { img } = sprite;
+
+                if (!this.images[img]) imageLoaders.push(this.loadImage(img));
+            }
+        }
+
+        console.log('loadSprites', imageLoaders);
+
+        return Promise.all(imageLoaders);
+    }
+
+    renderFrame({ sprite, frame, x, y, w, h }) {
+        const spriteCfg = this.sprites[sprite[0]][sprite[1]];
+        const [fx, fy, fw, fh] = spriteCfg.frames[frame];
+        const img = this.images[spriteCfg.img];
+
+        this.ctx.drawImage(img, fx, fy, fw, fh, x, y, w, h);
     }
 
     onKeyDown(e) {

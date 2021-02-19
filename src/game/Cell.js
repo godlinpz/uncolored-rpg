@@ -18,9 +18,10 @@ class Cell {
 
     initCell() {
         const { cfg, map } = this;
+        const gameObjs = map.game.gameObjects;
 
         cfg.forEach((objName) => {
-            const objCfg = _.cloneDeep(objName);
+            const objCfg = _.cloneDeep(gameObjs[objName]);
             this.objects.push(new GameObject(objCfg, this));
         });
     }
